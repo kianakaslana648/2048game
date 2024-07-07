@@ -10,6 +10,11 @@ This is a Python implementation of the popular 2048 game using Pygame. The game 
 - Game over condition when no more moves are possible
 - Restart and quit options after winning or losing
 
+## Screenshots
+![screenshot1](./screenshots/screenshot1.png)  
+![screenshot2](./screenshots/screenshot2.png)  
+![screenshot3](./screenshots/screenshot3.png)
+
 ## Requirements
 
 - Python 3.x
