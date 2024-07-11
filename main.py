@@ -82,7 +82,7 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:  
                 if event.key == pygame.K_w:
                     game.move_up()
                 elif event.key == pygame.K_s:
@@ -93,13 +93,13 @@ def main():
                     game.move_right()
         
         draw_grid(game)
-
-        if not game.can_move():
-            restart_button, quit_button = show_message("Game Over!")
-            break
         
         if game.has_won():
             restart_button, quit_button = show_message("You Win!")
+            break
+        
+        if not game.can_move():
+            restart_button, quit_button = show_message("Game Over!")
             break
         
         clock.tick(10)

@@ -3,6 +3,7 @@ import random
 class Game2048:
     def __init__(self):
         self.grid = [[0] * 4 for _ in range(4)]
+        self.next_grid = [[0] * 4 for _ in range(4)]
         self.add_new_tile()
         self.add_new_tile()
 
@@ -25,24 +26,42 @@ class Game2048:
         return row
 
     def move_left(self):
+        moved = False
         for r in range(4):
-            self.grid[r] = self.slide(self.combine(self.slide(self.grid[r])))
-        self.add_new_tile()
+            self.next_grid[r] = self.slide(self.combine(self.slide(self.grid[r])))
+        if self.next_grid != self.grid:
+            moved = True
+        # for r in range(4):
+        #     self.grid[r] = self.slide(self.combine(self.slide(self.grid[r])))
+        self.grid = self.next_grid
+        if moved:
+            self.add_new_tile()
+            self.add_new_tile()
 
     def move_right(self):
+        moved = False
         for r in range(4):
-            self.grid[r] = self.slide(self.combine(self.slide(self.grid[r][::-1])))[::-1]
-        self.add_new_tile()
+            self.next_grid[r] = self.slide(self.combine(self.slide(self.grid[r][::-1])))[::-1]
+        if self.next_grid != self.grid:
+            moved = True
+        self.grid = self.next_grid
+        if moved:
+            self.add_new_tile()
+            self.add_new_tile()
 
     def move_up(self):
         self.grid = self.transpose(self.grid)
+        self.next_grid = self.transpose(self.next_grid)
         self.move_left()
         self.grid = self.transpose(self.grid)
+        self.next_grid = self.transpose(self.next_grid)
 
     def move_down(self):
         self.grid = self.transpose(self.grid)
+        self.next_grid = self.transpose(self.next_grid)
         self.move_right()
         self.grid = self.transpose(self.grid)
+        self.next_grid = self.transpose(self.next_grid)
 
     def transpose(self, grid):
         return [list(row) for row in zip(*grid)]
